@@ -36,10 +36,10 @@
                            WRITE RC-SHE-HER-PERSON FROM RC-PERSON
                            END-WRITE
                         END-IF
-                       AT END 
-                           MOVE 1 TO WS-FILE-IS-ENDED
-                       END-READ
-                       END-PERFORM.
+                    AT END 
+                        MOVE 1 TO WS-FILE-IS-ENDED
+                  END-READ
+           END-PERFORM.
 
            CLOSE F-PEOPLE-FILE.
            CLOSE F-SHE-HER-FILE. 
