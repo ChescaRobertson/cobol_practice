@@ -6,7 +6,7 @@
                SELECT F-PEOPLE-FILE ASSIGN TO "people.dat"
                  ORGANISATION IS LINE SEQUENTIAL.
                SELECT F-SHE-HER-FILE ASSIGN TO "she-her-people.dat"
-                  ORGANISATION IS LINE SEQUENTIAL ACCESS IS SEQUENTIAL.
+                  ORGANISATION IS LINE SEQUENTIAL.
        DATA DIVISION.
            FILE SECTION.
            FD F-PEOPLE-FILE.
@@ -38,7 +38,7 @@
                         END-IF
                     AT END 
                         MOVE 1 TO WS-FILE-IS-ENDED
-                  END-READ
+                END-READ
            END-PERFORM.
 
            CLOSE F-PEOPLE-FILE.
