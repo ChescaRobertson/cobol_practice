@@ -1,0 +1,28 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. pronoun-writer.
+       ENVIRONMENT DIVISION.
+           INPUT-OUTPUT SECTION.
+           FILE-CONTROL.
+               SELECT F-PEOPLE-FILE ASSIGN TO "people.dat"
+                 ORGANISATION IS LINE SEQUENTIAL ACCESS IS SEQUENTIAL.
+       DATA DIVISION.
+           FILE SECTION.
+           FD F-PEOPLE-FILE.
+           01 RC-PERSON.
+             05 RC-PERSON-NAME PIC X(20).
+             05 RC-PERSON-PRONOUN.
+               10 RC-PERSON-PRONOUN-NOM PIC X(4). 
+               10 RC-PERSON-PRONOUN-OBJ PIC X(4).
+           LINKAGE SECTION.
+           01 LS-NAME PIC X(20).
+           01 LS-PRONOUN-NOM PIC X(4).
+           01 LS-PRONOUN-OBJ PIC X(4).
+       PROCEDURE DIVISION USING LS-NAME LS-PRONOUN-NOM LS-PRONOUN-OBJ.
+           OPEN EXTEND F-PEOPLE-FILE.
+               MOVE LS-NAME TO RC-PERSON-NAME.
+               MOVE LS-PRONOUN-NOM TO RC-PERSON-PRONOUN-NOM.
+               MOVE LS-PRONOUN-OBJ TO RC-PERSON-PRONOUN-OBJ.
+               WRITE RC-PERSON
+               END-WRITE.
+           
+           CLOSE F-PEOPLE-FILE.
