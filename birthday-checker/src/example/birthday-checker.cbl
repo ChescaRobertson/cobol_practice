@@ -5,12 +5,8 @@
            01 WS-RESULT UNSIGNED-INT.
            LINKAGE SECTION.
            01 LS-NAME PIC A(10).
-           01 LS-BIRTHDAY PIC 9999. 
-      *         03 LS-MONTH PIC 99.
-      *         03 LS-DAY PIC 99.
-           01 LS-TODAY PIC 9999.
-      *         03 LS-MONTH PIC 99.
-      *         03 LS-DAY PIC 99.
+           01 LS-BIRTHDAY UNSIGNED-INT.
+           01 LS-TODAY UNSIGNED-INT.
            01 LS-BIRTHDAY-GREETER PIC A(40).
        PROCEDURE DIVISION USING LS-NAME, LS-BIRTHDAY, LS-TODAY,
            LS-BIRTHDAY-GREETER.
