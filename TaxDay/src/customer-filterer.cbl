@@ -47,6 +47,7 @@
            END-IF.
 
            PERFORM BIRTHDAY. 
+           GOBACK.
 
            TAX-DAY SECTION.
            MOVE 0 TO WS-FILE-IS-ENDED.
@@ -55,9 +56,10 @@
            PERFORM UNTIL WS-FILE-IS-ENDED = 1
               READ F-CUSTOMERS-FILE
                NOT AT END
-                   IF LS-TODAY-YEAR - BIRTHDAY-YEAR >= 18 AND
+                   IF (LS-TODAY-YEAR - BIRTHDAY-YEAR > 18) OR 
+                   (LS-TODAY-YEAR - BIRTHDAY-YEAR = 18 AND
                    BIRTHDAY-MONTH >= LS-TODAY-MONTH AND
-                   BIRTHDAY-DAY >= LS-TODAY-DAY
+                   BIRTHDAY-DAY >= LS-TODAY-DAY)
                        MOVE PERSON-NAME TO TAX-CARDS-PERSON-NAME
                        MOVE PERSON-ADDRESS TO TAX-CARDS-PERSON-ADDRESS
                        STRING "Happy Tax Day, " PERSON-NAME 
