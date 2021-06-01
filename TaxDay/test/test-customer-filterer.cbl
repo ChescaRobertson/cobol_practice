@@ -12,13 +12,14 @@
            SET ENVIRONMENT "cards_dat" TO "cards-tax-day.dat".
            CALL "customer-filterer" USING "04-06", "2021".
        
-       TEST-LEAP-YEAR-BIRTHDAYS.
+       TEST-LEAP-YEAR-BIRTHDAYS-ON-LEAP-YEAR.
            SET ENVIRONMENT "cards_dat" TO "cards-leap-year-0229.dat".
            CALL "customer-filterer" USING "02-29", "2024".
 
-           TEST-LEAP-YEAR-BIRTHDAYS.
+       TEST-LEAP-YEAR-BIRTHDAYS-ON-NON-LEAP-YEAR.
            SET ENVIRONMENT "cards_dat" TO "cards-leap-year-0301.dat".
            CALL "customer-filterer" USING "03-01", "2022".
+           
            
 
 
