@@ -1,6 +1,9 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. customer-filterer.
        ENVIRONMENT DIVISION.
+           CONFIGURATION SECTION.
+           REPOSITORY.
+               FUNCTION IS-LEAP-YEAR.
            INPUT-OUTPUT SECTION.
            FILE-CONTROL.
                SELECT F-CUSTOMERS-FILE ASSIGN TO "customers.dat"
@@ -83,6 +86,10 @@
            PERFORM UNTIL WS-FILE-IS-ENDED = 1
                READ F-CUSTOMERS-FILE
                    NOT AT END
+                   IF BIRTHDAY-MONTH = '02' AND BIRTHDAY-DAY = '29' AND
+                   FUNCTION IS-LEAP-YEAR(LS-TODAY-YEAR) = 'FALSE'
+                          MOVE '0000-03-01' TO PERSON-BIRTHDAY
+                   END-IF
                        IF PERSON-BIRTHDAY(6:5) = LS-TODAY
                            MOVE PERSON-NAME TO CARDS-PERSON-NAME
                            MOVE PERSON-ADDRESS TO CARDS-PERSON-ADDRESS
@@ -99,5 +106,6 @@
            CLOSE F-CUSTOMERS-FILE.
            CLOSE F-CARDS-FILE.
            
-      
-              
+        
+           
+           

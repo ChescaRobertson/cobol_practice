@@ -1,5 +1,9 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. main-program.
+       ENVIRONMENT DIVISION.
+           CONFIGURATION SECTION.
+           REPOSITORY.
+               FUNCTION IS-LEAP-YEAR.
        DATA DIVISION.
            WORKING-STORAGE SECTION.
            01 WS-TODAY PIC X(5).
@@ -15,6 +19,6 @@
            INTO WS-TODAY
            END-STRING.
    
-           CALL "customer-filterer" USING "04-06", "2021".
+           CALL "customer-filterer" USING "03-01", "2022".
            
            
