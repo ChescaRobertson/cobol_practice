@@ -22,9 +22,6 @@
            
        TEST-WEREWOLF-CARDS-SENT.
            SET ENVIRONMENT "cards_dat" TO "werewolf-cards.dat"  
-           CALL "customer-filterer" USING "06-24", "2021". 
-
-
-
+           CALL "customer-filterer" USING "05-23", "1986". 
 
            
