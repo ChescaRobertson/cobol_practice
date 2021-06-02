@@ -3,7 +3,8 @@
        ENVIRONMENT DIVISION.
            CONFIGURATION SECTION.
            REPOSITORY.
-               FUNCTION IS-LEAP-YEAR.
+               FUNCTION IS-LEAP-YEAR
+               FUNCTION IS-SUPERMOON.
        DATA DIVISION.
            WORKING-STORAGE SECTION.
            01 WS-TODAY PIC X(5).
@@ -18,7 +19,9 @@
            STRING WS-TODAY-MONTH "-" WS-TODAY-DAY 
            INTO WS-TODAY
            END-STRING.
+         
+ 
    
            CALL "customer-filterer" USING "03-01", "2022".
            
-           
+           CALL "IS-SUPERMOON" USING "1922-04-11".

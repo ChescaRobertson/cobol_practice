@@ -3,7 +3,8 @@
        ENVIRONMENT DIVISION.
            CONFIGURATION SECTION.
            REPOSITORY.
-               FUNCTION IS-LEAP-YEAR.
+               FUNCTION IS-LEAP-YEAR
+               FUNCTION IS-SUPERMOON.
            INPUT-OUTPUT SECTION.
            FILE-CONTROL.
                SELECT F-CUSTOMERS-FILE ASSIGN TO "customers.dat"
@@ -106,6 +107,7 @@
            CLOSE F-CUSTOMERS-FILE.
            CLOSE F-CARDS-FILE.
            
-        
+           WEREWOLF SECTION.
+
            
            
