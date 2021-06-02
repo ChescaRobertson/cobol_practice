@@ -4,7 +4,8 @@
            CONFIGURATION SECTION.
            REPOSITORY.
                FUNCTION IS-LEAP-YEAR
-               FUNCTION IS-SUPERMOON.
+               FUNCTION IS-TODAY-SUPERMOON
+               FUNCTION IS-A-WEREWOLF.
            INPUT-OUTPUT SECTION.
            FILE-CONTROL.
                SELECT F-CUSTOMERS-FILE ASSIGN TO "customers.dat"
@@ -12,6 +13,8 @@
                SELECT F-CARDS-FILE ASSIGN TO "cards.dat"
                  ORGANISATION IS LINE SEQUENTIAL.
                 SELECT F-TAX-CARDS-FILE ASSIGN TO "cards-tax-day.dat" 
+                  ORGANISATION IS LINE SEQUENTIAL.
+                SELECT F-WEREWOLF-FILE ASSIGN TO "werewolf-cards.dat" 
                   ORGANISATION IS LINE SEQUENTIAL.
        DATA DIVISION.
            FILE SECTION.
@@ -36,6 +39,11 @@
                05 TAX-CARDS-PERSON-NAME PIC X(40).
                05 TAX-CARDS-PERSON-ADDRESS PIC X(100).
                05 TAX-CARDS-GREETING PIC X(56).
+           FD F-WEREWOLF-FILE.
+           01 WEREWOLF-PERSON.
+               05 WEREWOLF-NAME PIC X(40).
+               05 WEREWOLF-ADDRESS PIC X(100).
+               05 WEREWOLF-GREETING PIC X(56).
            WORKING-STORAGE SECTION.
            01 WS-FILE-IS-ENDED PIC 9.
            01 WS-DATE-FORMAT PIC 9(8).
@@ -48,6 +56,12 @@
        PROCEDURE DIVISION USING LS-TODAY, LS-TODAY-YEAR. 
            IF LS-TODAY = "04-06" 
                PERFORM TAX-DAY
+           END-IF.
+
+      *     DISPLAY FUNCTION IS-TODAY-SUPERMOON 
+
+           IF FUNCTION IS-TODAY-SUPERMOON = 'TRUE'
+             PERFORM WEREWOLF
            END-IF.
 
            PERFORM BIRTHDAY. 
@@ -108,6 +122,29 @@
            CLOSE F-CARDS-FILE.
            
            WEREWOLF SECTION.
+           MOVE 0 TO WS-FILE-IS-ENDED.
+           OPEN INPUT F-CUSTOMERS-FILE.
+           DISPLAY "OPENING CUSTOMERS FILE"
+           OPEN EXTEND F-WEREWOLF-FILE.
+           DISPLAY "OPENING WEREWOLF FILE"
+           PERFORM UNTIL WS-FILE-IS-ENDED = 1
+               READ F-CUSTOMERS-FILE
+                   NOT AT END
+                      IF IS-A-WEREWOLF(PERSON-BIRTHDAY) = 'TRUE'
+                           MOVE PERSON-NAME TO WEREWOLF-NAME
+                           MOVE PERSON-ADDRESS TO WEREWOLF-ADDRESS
+                           STRING "Awoo " PERSON-NAME 
+                           INTO WEREWOLF-GREETING
+                           END-STRING
+                           WRITE WEREWOLF-PERSON
+                           END-WRITE
+                      END-IF
+                    AT END
+                       MOVE 1 TO WS-FILE-IS-ENDED
+                END-READ
+           END-PERFORM.
+           CLOSE F-CUSTOMERS-FILE.
+           CLOSE F-WEREWOLF-FILE. 
 
            
            

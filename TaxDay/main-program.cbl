@@ -4,7 +4,7 @@
            CONFIGURATION SECTION.
            REPOSITORY.
                FUNCTION IS-LEAP-YEAR
-               FUNCTION IS-SUPERMOON.
+               FUNCTION IS-TODAY-SUPERMOON.
        DATA DIVISION.
            WORKING-STORAGE SECTION.
            01 WS-TODAY PIC X(5).
@@ -24,4 +24,4 @@
    
            CALL "customer-filterer" USING "03-01", "2022".
            
-           CALL "IS-SUPERMOON" USING "1922-04-11".
+      *     CALL "IS-SUPERMOON" USING "1922-04-11".
