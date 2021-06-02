@@ -18,26 +18,34 @@
               05 APPARENT-MAGNITUDE PIC X(7).
            WORKING-STORAGE SECTION.
            01 WS-FILE-IS-ENDED PIC 9.
+              01 WS-SUPERMOONS.
+               05 WS-SUPERMOON OCCURS 661 TIMES
+                   ASCENDING KEY IS WS-MOON
+                   INDEXED BY MOON-IDX.
+                       10 WS-MOON PIC X(10).
            LINKAGE SECTION.
            01 LS-BIRTHDAY PIC X(10).
            01 LS-RESULT PIC A(5).
        PROCEDURE DIVISION USING LS-BIRTHDAY RETURNING LS-RESULT.
      
+           SET MOON-IDX TO 0
            OPEN INPUT F-SUPERMOONS-FILE.
            MOVE 0 TO WS-FILE-IS-ENDED.
-       
            PERFORM UNTIL WS-FILE-IS-ENDED = 1
                 READ F-SUPERMOONS-FILE
                     NOT AT END 
-                        IF MOON-DATE = LS-BIRTHDAY
-                           MOVE 'TRUE' TO LS-RESULT
+                       ADD 1 TO MOON-IDX
+                        MOVE MOON-DATE TO WS-SUPERMOON(MOON-IDX)
                      AT END 
                         MOVE 1 TO WS-FILE-IS-ENDED
                  END-READ
            END-PERFORM.
            CLOSE F-SUPERMOONS-FILE.
-     
-           DISPLAY LS-RESULT.
+
+           SEARCH ALL WS-SUPERMOON
+               WHEN WS-MOON(MOON-IDX) = LS-BIRTHDAY
+                   MOVE 'TRUE' TO LS-RESULT
+           END-SEARCH.
 
            END FUNCTION IS-A-WEREWOLF.
            

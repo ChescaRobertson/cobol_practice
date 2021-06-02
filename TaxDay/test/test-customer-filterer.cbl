@@ -20,7 +20,9 @@
            SET ENVIRONMENT "cards_dat" TO "cards-leap-year-0301.dat".
            CALL "customer-filterer" USING "03-01", "2022".
            
-           
+       TEST-WEREWOLF-CARDS-SENT.
+           SET ENVIRONMENT "cards_dat" TO "werewolf-cards.dat"  
+           CALL "customer-filterer" USING "06-24", "2021". 
 
 
 

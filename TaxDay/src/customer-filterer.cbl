@@ -58,8 +58,6 @@
                PERFORM TAX-DAY
            END-IF.
 
-      *     DISPLAY FUNCTION IS-TODAY-SUPERMOON 
-
            IF FUNCTION IS-TODAY-SUPERMOON = 'TRUE'
              PERFORM WEREWOLF
            END-IF.
@@ -124,9 +122,7 @@
            WEREWOLF SECTION.
            MOVE 0 TO WS-FILE-IS-ENDED.
            OPEN INPUT F-CUSTOMERS-FILE.
-           DISPLAY "OPENING CUSTOMERS FILE"
            OPEN EXTEND F-WEREWOLF-FILE.
-           DISPLAY "OPENING WEREWOLF FILE"
            PERFORM UNTIL WS-FILE-IS-ENDED = 1
                READ F-CUSTOMERS-FILE
                    NOT AT END

@@ -27,7 +27,7 @@
                    ASCENDING KEY IS WS-MOON
                    INDEXED BY MOON-IDX.
                        10 WS-MOON PIC X(10).
-           01 WS-FOUND PIC 9.
+      *    01 WS-FOUND PIC 9.
            LINKAGE SECTION.
            01 LS-DATE PIC X(10).
            01 LS-RESULT PIC A(5).
@@ -42,51 +42,25 @@
            END-STRING.
 
            MOVE "1922-04-11" TO WS-TODAY-DATE.
-
-      *     IS-TODAY-SUPERMOON SECTION.
-          *>  OPEN INPUT F-SUPERMOONS-FILE.
-          *>  MOVE 0 TO WS-FILE-IS-ENDED.
-       
-          *>  PERFORM UNTIL WS-FILE-IS-ENDED = 1
-          *>       READ F-SUPERMOONS-FILE
-          *>           NOT AT END 
-          *>               MOVE MOON-DATE TO WS-SUPERMOONS
-          *>               DISPLAY WS-SUPERMOONS
-          *>            AT END 
-          *>               MOVE 1 TO WS-FILE-IS-ENDED
-          *>        END-READ
-          *>  END-PERFORM.
-          *>  CLOSE F-SUPERMOONS-FILE.
-
+           
+           SET MOON-IDX TO 0
            OPEN INPUT F-SUPERMOONS-FILE.
            MOVE 0 TO WS-FILE-IS-ENDED.
-       
            PERFORM UNTIL WS-FILE-IS-ENDED = 1
                 READ F-SUPERMOONS-FILE
                     NOT AT END 
-                        IF MOON-DATE = WS-TODAY-DATE
-                           MOVE 'TRUE' TO LS-RESULT
+                       ADD 1 TO MOON-IDX
+                        MOVE MOON-DATE TO WS-SUPERMOON(MOON-IDX)
                      AT END 
                         MOVE 1 TO WS-FILE-IS-ENDED
                  END-READ
            END-PERFORM.
            CLOSE F-SUPERMOONS-FILE.
 
-           DISPLAY WS-TODAY-DATE.
-      *     DISPLAY WS-SUPERMOONS.
-
-          *>  SEARCH ALL WS-SUPERMOON
-          *>      WHEN WS-MOON(MOON-IDX) = WS-TODAY-DATE
-          *>          MOVE 1 TO WS-FOUND
-          *>      END-SEARCH.
-
-          *>  IF WS-FOUND = 1
-          *>      MOVE 'TRUE' TO LS-RESULT
-          *>  ELSE    
-          *>      MOVE 'FALSE' TO LS-RESULT
-          *>  END-IF. 
-
-           DISPLAY LS-RESULT.
+           SEARCH ALL WS-SUPERMOON
+               WHEN WS-MOON(MOON-IDX) = WS-TODAY-DATE
+                   MOVE 'TRUE' TO LS-RESULT
+               END-SEARCH.
 
            END FUNCTION IS-TODAY-SUPERMOON.
            
